@@ -1,0 +1,43 @@
+{% load poll_extras %}
+
+<h2>نظرات ({{ commentsCount }})</h2>
+<ul class="media-list">
+    {% for comment in comments %}
+        <li class="media" id="singleCommentBox{{ comment.id }}">
+            <a class="pull-right" href="#">
+                <img class="media-object" src="/static/images/blog/Customer.jpg" alt="">
+            </a>
+            <div class="media-body">
+                <ul class="sinlge-post-meta">
+                    <li><i class="fa fa-user"></i>{{ comment.user }}</li>
+                    <li><i class="fa fa-clock-o"></i>{{ comment.createDate | time }}</li>
+                    <li><i class="fa fa-calendar"></i>{{ comment.createDate | showDate }}</li>
+                </ul>
+
+                <hr>
+                <b><p>{{ comment.text }}</p></b>
+                <a class="btn btn-primary" onclick="fillParentId({{ comment.id }})"><i class="fa fa-reply"></i>پاسـخ</a>
+            </div>
+        </li>
+
+        {% for subComent in comment.articlecomment_set.all %}
+            <li class="media second-media" id="singleCommentBox{{ comment.id }}">
+                <a class="pull-right" href="#">
+                    <img class="media-object" src="/static/images/blog/Customer.jpg" alt="">
+                </a>
+                <div class="media-body">
+                    <ul class="sinlge-post-meta">
+                        <li><i class="fa fa-user"></i>{{ subComent.user }}</li>
+                        <li><i class="fa fa-clock-o"></i>{{ subComent.createDate | time }}</li>
+                        <li><i class="fa fa-calendar"></i>{{ subComent.createDate | showDate }}
+                        </li>
+                    </ul>
+                    <hr>
+                    <b><p>{{ subComent.text }}</p></b>
+
+                </div>
+            </li>
+        {% endfor %}
+
+    {% endfor %}
+</ul>

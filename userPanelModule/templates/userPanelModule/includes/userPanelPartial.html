@@ -1,0 +1,15 @@
+<div class="list-group">
+    <a href="{% url 'userDashboardPage' %}"
+       class="list-group-item {% if request.resolver_match.url_name == 'userDashboardPage' %}active{% endif %}">پنل
+        کاربری</a>
+</div>
+<div class="list-group">
+    <a href="{% url 'editProfilePage' %}"
+       class="list-group-item {% if request.resolver_match.url_name == 'editProfilePage' %}active{% endif %}">ویرایش
+        اطلاعات</a>
+</div>
+<div class="list-group">
+    <a href="{% url 'changePasswordPage' %}"
+       class="list-group-item {% if request.resolver_match.url_name == 'changePasswordPage' %}active{% endif %}">تغییر
+        کلمه عبور</a>
+</div>

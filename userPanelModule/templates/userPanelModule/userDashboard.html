@@ -1,0 +1,23 @@
+{% extends 'shared/layout.html' %}
+{% load thumbnail %}
+{% load render_partial %}
+
+
+{% block titile %}پنل کاربری{% endblock %}
+
+
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {% render_partial 'userPanelModule.views.userPanelMenuPartial' %}
+            </div>
+            <div class="col-md-8">
+                <p>This Is User Dashboard</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

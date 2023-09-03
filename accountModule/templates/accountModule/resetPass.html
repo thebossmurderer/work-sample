@@ -1,0 +1,30 @@
+{% extends 'shared/layout.html' %}
+
+{% block titile %}بازیابی کلمه عبور{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section id="form"><!--form-->
+            <div class="row">
+                <div class="col-sm-6 col-lg-offset-3">
+                    <div class="login-form"><!--login form-->
+                        <h2>بازیابی کلمه عبور :</h2>
+                        <form method="post" action="{% url 'resetPassPage' reset_pass_code=user.emailActiveCode %}">
+                            {% csrf_token %}
+
+                            {{ resetPassForms.password }}
+                            {{ resetPassForms.password.errors }}
+
+                            {{ resetPassForms.confirmPassword }}
+                            {{ resetPassForms.confirmPassword.errors }}
+
+
+                            <button type="submit" class="btn btn-default">فراموشی کلمه عبور</button>
+                        </form>
+                    </div><!--/login form-->
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends 'shared/layout.html' %}
+{% load render_partial %}
+{% load static %}
+{% load thumbnail %}
+
+{% block titile %}
+    لیست محصولات
+{% endblock %}
+
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-9 padding-right">
+                    {% if products %}
+                        <div class="features_items"><!--features_items-->
+                            <h2 class="title text-center">لیست محصولات</h2>
+
+                            {% for product in products %}
+                                {% include 'includes/productItemPartial.html' with product=product %}
+                            {% endfor %}
+
+
+                            <div class="clearfix"></div>
+
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li>
+                                        <a class="cursor-pointer"
+                                           onclick="fillPage({{ page_obj.previous_page_number }})">قبلی</a>
+                                    </li>
+                                {% endif %}
+                                {% for pageNumber in paginator.page_range %}
+                                    <li class="{% if page_obj.number == pageNumber %}active{% endif %}">
+                                        <a class="cursor-pointer"
+                                           onclick="fillPage({{ pageNumber }})">{{ pageNumber }}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li>
+                                        <a class="cursor-pointer"
+                                           onclick="fillPage({{ page_obj.next_page_number }})">بعدی</a>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </div><!--features_items-->
+                    {% else %}
+                        <div class="alert alert-warning">
+                            <p>هیچ محصولی یافت نشد</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="left-sidebar">
+                        {% render_partial 'Shop.views.productCategoriesPartial' %}
+                        {% render_partial 'Shop.views.productBrandPartial' %}
+
+
+                        <div class="price-range"><!--price-range-->
+                            <h2>فیلتـر قیمـت</h2>
+                            <div class="well">
+                                <input
+                                        type="text"
+                                        class="span2"
+                                        value="{{ startPrice }} , {{ endPrice }}"
+                                        data-slider-min="0"
+                                        data-slider-max="{{ dbMaxPrice }}"
+                                        data-slider-step="1"
+                                        data-slider-value="[{{ startPrice }},{{ endPrice }}]"
+                                        id="sl2">
+                                <br/>
+                                <b>{{ dbMaxPrice }}</b> <b class="pull-left">0</b>
+                            </div>
+                        </div><!--/price-range-->
+                        <div>
+                            <form action="" method="get" id="filterForm">
+                                <input type="hidden" name="page" id="page" value="{{ page_obj.number }}">
+                                <input type="hidden" name="startPrice" id="startPrice" value="{{ startPrice }}">
+                                <input type="hidden" name="endPrice" id="endPrice" value="{{ endPrice }}">
+                            </form>
+                            <button class="btn btn-success btn-block" onclick="filterProducts()">
+                                فیلتر
+                            </button>
+                        </div>
+                        <div class="shipping text-center"><!--shipping-->
+                           {% for banner in banners %}
+                               {% thumbnail banner.image "270x329" crop='center' as im %}
+                                   <a href="{{ banner.url }}">
+                                   <img src="{{ im.url }}">
+                                   </a>
+                                {% endthumbnail %}
+                           {% endfor %}
+
+                        </div><!--/shipping-->
+                        <br>
+                        <br>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% block content %}#}
+{##}
+{#    <hr>#}
+{#    <ul>#}
+{#        <li style="background:azure">#}
+{#            <p>Available Products : {{ totlaCountProducts }}</p>#}
+{#        </li>#}
+{#        <li style="background:azure">#}
+{#            <p>Average Of Ratings : {{ avgOfRating.rating__avg }}</p>#}
+{#        </li>#}
+{#        <li style="background:azure">#}
+{#            <p>Average Of Price : $ {{ avgOfPrice.price__avg }}</p>#}
+{#        </li>#}
+{#    </ul>#}
+{#    <hr>#}
+{#    <ul>#}
+{#        {% for product in products %}#}
+{#            <li style="background: antiquewhite">#}
+{#                <a href="{{ product.getAbsoluteUrls }}" style="color: black;text-decoration: none ">#}
+{#                    Game Name : {{ product.title }}#}
+{#                    <br>#}
+{#                    Price : $ {{ product.price }}#}
+{#                    <hr>#}
+{#                </a>#}
+{#            </li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#{% endblock %}#}

@@ -1,0 +1,98 @@
+{% extends 'shared/layout.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load poll_extras %}
+{% load render_partial %}
+
+
+
+
+
+
+{% block titile %}لیست مقالات{% endblock %}
+
+
+{% block content %}
+
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-9">
+                    <div class="blog-post-area">
+                        <h2 class="title text-center">لیست مقالات</h2>
+
+
+
+
+                        {% for article in object_list %}
+
+                            <div class="single-blog-post">
+                                <a href="{% url 'articleDetailPage' pk=article.id %}"><h3>{{ article.title }}</h3></a>
+                                <div class="post-meta">
+                                    <ul>
+                                        {% if article.author is not None %}
+                                            <li><i class="fa fa-user"></i>{{ article.author }}</li>
+                                        {% endif %}
+
+
+                                        <li><i class="fa fa-clock-o"></i>{{ article.getJalaliCtreateDateTime }}</li>
+                                        <li><i class="fa fa-calendar"></i>{{ article.createDateTime | showDate }}</li>
+                                    </ul>
+
+                                </div>
+                                <a href="">
+                                    {% thumbnail article.image "862x398" crop='center' as im %}
+                                        <img src="{{ im.url }}">
+                                    {% endthumbnail %}
+                                </a>
+
+
+                                <h4>{{ article.shortDescription }}</h4>
+                                <a class="btn btn-primary" href="{% url 'articleDetailPage' pk=article.id %}">ادامـه
+                                    مطلب</a>
+                            </div>
+                        {% endfor %}
+
+                        <div class="clearfix"></div>
+
+                        <ul class="pagination">
+
+                            {% if page_obj.has_previous %}
+                                <li>
+                                    <a href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                                </li>
+                            {% endif %}
+
+
+                            {% for pageNumber in paginator.page_range %}
+
+                                <li class="{% if page_obj.number == pageNumber %}active{% endif %}">
+                                    <a href="?page={{ pageNumber }}">{{ pageNumber }}</a>
+                                </li>
+                            {% endfor %}
+
+
+                            {% if page_obj.has_next %}
+                                <li>
+                                    <a href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+
+
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="left-sidebar">
+                        {% render_partial 'articleModule.views.articelCategoriesPartial' %}
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

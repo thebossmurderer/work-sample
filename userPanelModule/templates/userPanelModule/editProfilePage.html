@@ -1,0 +1,82 @@
+{% extends 'shared/layout.html' %}
+{% load thumbnail %}
+{% load render_partial %}
+
+
+{% block titile %}ویرایش اطلاعات کاربری{% endblock %}
+
+
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+
+                {% if currentUser.avatar %}
+                    <a class="thumbnail">
+                        <img style="width: 100%;" src="{{ currentUser.avatar.url }}" alt="">
+                    </a>
+                {% endif %}
+
+
+
+
+                {% render_partial 'userPanelModule.views.userPanelMenuPartial' %}
+            </div>
+
+
+            <div class="col-md-8">
+
+                <form enctype="multipart/form-data" action="{% url 'editProfilePage' %}" method="post">
+                    {% csrf_token %}
+
+                    {% if request.user.is_superuser is True %}
+                        <div class="col-md-12 form-group">
+                            {{ form.avatar.label }} :
+                            {{ form.avatar }}
+                        </div>
+                        <div class="col-md-12 form-group">
+                            {{ form.first_name.label }} :
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-12 form-group">
+                            {{ form.last_name.label }} :
+                            {{ form.last_name }}
+                        </div>
+                        <div class="col-md-12 form-group">
+                            {{ form.address.label }} :
+                            {{ form.address }}
+                        </div>
+                        <div class="col-md-12 form-group">
+                            {{ form.aboutUser.label }} :
+                            {{ form.aboutUser }}
+                        </div>
+                    {% else %}
+                        <div class="col-md-12 form-group">
+                            {{ form.avatar.label }} :
+                            {{ form.avatar }}
+                        </div>
+                        <div class="col-md-12 form-group">
+                            {{ form.first_name.label }} :
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-12 form-group">
+                            {{ form.last_name.label }} :
+                            {{ form.last_name }}
+                        </div>
+                        <div class="col-md-12 form-group">
+                            {{ form.address.label }} :
+                            {{ form.address }}
+                        </div>
+                    {% endif %}
+
+
+                    <button type="submit" class="btn btn-success">ثبت</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

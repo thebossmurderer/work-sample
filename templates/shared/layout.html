@@ -1,0 +1,27 @@
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+{#------------------------------------------------Title------------------------------------------------------------------#}
+    <title>{% block titile %}{% endblock %}</title>
+{#------------------------------------------Header References------------------------------------------------------------#}
+    {% include 'shared/headerReferences.html' %}
+{% block headerReferences %}{% endblock %}
+</head><!--/head-->
+<body>
+{#--------------------------------------------Header Partial-------------------------------------------------------------#}
+    {% render_partial 'homeModule.views.siteHeaderPartial' %}
+{#----------------------------------------------Body Block---------------------------------------------------------------#}
+    {% block content %}{% endblock %}
+{#--------------------------------------------Footer Partial-------------------------------------------------------------#}
+    {% render_partial 'homeModule.views.siteFooterPartial' %}
+{#-------------------------------------------Footer References-----------------------------------------------------------#}
+    {% include 'shared/footerReverences.html' %}
+{% block footerReferences %}{% endblock %}
+</body>
+</html>
